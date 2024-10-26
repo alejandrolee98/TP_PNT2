@@ -1,6 +1,5 @@
 <template>
     <div class="container">
-        <h1>Home</h1>
-        <p>La home</p>
+        <h1>Cotizador</h1>
     </div>
 </template>
