@@ -1,5 +1,5 @@
 <template>
-    <div class=" min-vh-100 bg-black d-flex align-items-center justify-content-center">
+    <div class="bg-black min-vh-100 d-flex flex-column align-items-center pt-5">
       <div class="card bg-transparent border-0" style="width: 400px;">
         <div class="card-body">
           <h1 class="text-white text-center mb-4">LOGIN</h1>
@@ -76,4 +76,5 @@
   .btn:hover {
     background-color: var(--primary-color) !important;
   }
+  
   </style>
