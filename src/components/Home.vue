@@ -25,7 +25,7 @@ body {
 }
 
 h1 {
-    color: #ff7b00; /* Color del encabezado */
+    color: var(--primary-color);; /* Color del encabezado */
     font-weight: bold; /* Hacer el texto en negrita */
     text-shadow: 2px 2px 4px rgba(18, 17, 17, 0.975); /* Sombra de texto */
 }

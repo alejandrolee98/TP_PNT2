@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <router-link class="nav-link" to="/">
             <img src="../images/Logo_Naranja.jpeg" width="50" height="50" alt="" loading="lazy">
         </router-link>
@@ -20,7 +20,7 @@
 
 <style scope>
 nav{
-    background-color: rgb(255, 140, 0);
+    background-color: var(--primary-color);
 }
 .navbar-nav{
     font-weight:bold;

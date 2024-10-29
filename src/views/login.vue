@@ -1,18 +1,79 @@
 <template>
-    <div class="container">
-        <h1>Login</h1>
-        <form>
+    <div class=" min-vh-100 bg-black d-flex align-items-center justify-content-center">
+      <div class="card bg-transparent border-0" style="width: 400px;">
+        <div class="card-body">
+          <h1 class="text-white text-center mb-4">LOGIN</h1>
+          <form @submit.prevent="handleLogin">
+            <!-- Username -->
             <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="nombre@mail.com">
+              <input
+                type="text"
+                class="form-control form-control-lg bg-light"
+                placeholder="Username"
+                v-model="username"
+                required
+              >
             </div>
+           
+            <!-- Password -->
             <div class="mb-3">
-                <label for="pass" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="pass" placeholder="Contraseña">
+              <input
+                type="password"
+                class="form-control form-control-lg bg-light"
+                placeholder="Password"
+                v-model="password"
+                required
+              >
             </div>
-            <button type="submit" class="btn btn-primary">Ingresar</button>
-        </form>
+ 
+            <!-- Login button -->
+            <button
+              type="submit"
+              class="btn btn-lg w-100"
+              style="background-color: var(--primary-color); color: white;"
+            >
+              LOGIN
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-</template>
-<script setup>
-</script>
+  </template>
+ 
+  <script>
+  export default {
+    name: 'LoginView',
+    data() {
+      return {
+        username: '',
+        password: '',
+        remember: false
+      }
+    },
+    methods: {
+      handleLogin() {
+        console.log('Login attempt:', {
+          username: this.username,
+          password: this.password,
+          remember: this.remember
+        });
+      }
+    }
+  }
+  </script>
+ 
+  <style scoped>
+  .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+  }
+ 
+  .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+ 
+  .btn:hover {
+    background-color: var(--primary-color) !important;
+  }
+  </style>
