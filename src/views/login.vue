@@ -29,10 +29,10 @@
             <!-- Login button -->
             <button
               type="submit"
-              class="btn btn-lg w-100"
+              class="login btn btn-lg w-100"
               style="background-color: var(--primary-color); color: white;"
             >
-              LOGIN
+              Confirmar
             </button>
           </form>
         </div>
@@ -72,9 +72,14 @@
     background-color: var(--primary-color);
     border-color: var(--primary-color);
   }
- 
+  .btn {
+    transition: background-color 0.3s ease;
+  }
   .btn:hover {
-    background-color: var(--primary-color) !important;
+    background-color: var(--primary-color-hover) !important;
+  }
+  button.login {
+    font-weight:bold;
   }
   
   </style>
