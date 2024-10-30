@@ -7,10 +7,10 @@
             <!-- Username -->
             <div class="mb-3">
               <input
-                type="text"
+                type="email"
                 class="form-control form-control-lg bg-light"
-                placeholder="Username"
-                v-model="username"
+                placeholder="Email"
+                v-model="email"
                 required
               >
             </div>
@@ -31,6 +31,7 @@
               type="submit"
               class="login btn btn-lg w-100"
               style="background-color: var(--primary-color); color: white;"
+              @click ="login"
             >
               Confirmar
             </button>
@@ -40,26 +41,46 @@
     </div>
   </template>
  
-  <script>
-  export default {
-    name: 'LoginView',
-    data() {
-      return {
-        username: '',
-        password: '',
-        remember: false
+  <script setup>
+    import { useAuthStore } from '../stores';
+    import { ref } from 'vue';
+    import { useRouter } from 'vue-router';
+
+    const email = ref('');
+    const password = ref('');
+    const authStore = useAuthStore();
+    const router = useRouter();
+
+    const login = async () => {
+      await authStore.login(email.value, password.value);
+      if(authStore.isAuthenticated){
+        if (authStore.isAdmin) {
+          router.push('/admin');
+        } else {
+          router.push('/home');
+        }
       }
-    },
-    methods: {
-      handleLogin() {
-        console.log('Login attempt:', {
-          username: this.username,
-          password: this.password,
-          remember: this.remember
-        });
-      }
-    }
-  }
+}
+
+  // export default {
+  //   name: 'LoginView',
+  //   data() {
+  //     return {
+  //       username: '',
+  //       password: '',
+  //       remember: false
+  //     }
+  //   },
+  //   methods: {
+  //     handleLogin() {
+  //       console.log('Login attempt:', {
+  //         username: this.username,
+  //         password: this.password,
+  //         remember: this.remember
+  //       });
+  //     }
+  //   }
+  // }
   </script>
  
   <style scoped>
