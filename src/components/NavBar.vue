@@ -21,14 +21,16 @@
 
 <style scoped>
 .navbar {
-    background-color: var(--primary-color); /* Usando variable CSS */
+    background-color: var(--primary-color); 
+    padding-bottom: 0%;
+    padding-top: 0%;
 }
 .navbar-brand img {
-    padding-top: 1px; 
-    padding-bottom: 1px;
+    padding-top: 0px; 
+    padding-bottom: 0px;
 }
 .navbar-nav .nav-link {
-    color: #000; /* Color del texto */
+    color: #000; 
     font-weight: bold;
     font-size: 20px;
     text-transform: uppercase;
@@ -37,6 +39,6 @@
 }
 
 .navbar-nav .nav-link:hover {
-    color: #00000080; /* Color al pasar el mouse */
+    color: #00000080; 
 }
 </style>
