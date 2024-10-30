@@ -57,7 +57,7 @@
         if (authStore.isAdmin) {
           router.push('/admin');
         } else {
-          router.push('/home');
+          router.push('/');
         }
       }
 }

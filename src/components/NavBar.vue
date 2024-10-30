@@ -9,15 +9,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav ms-auto">
-                    <router-link class="nav-link" to="/">Home</router-link>
-                    <router-link class="nav-link" to="/cotizador">Cotizador</router-link>
-                    <router-link class="nav-link" to="/perfil">Perfil</router-link>
-                    <router-link class="nav-link" to="/login">Login</router-link>
+                    <li><router-link class="nav-link" to="/">Home</router-link></li>
+                    <li><router-link class="nav-link" to="/cotizador">Cotizador</router-link></li>
+                    <li v-if ="isAuthenticated"><router-link class="nav-link" to="/perfil">Perfil</router-link></li>
+                    <li v-if ="!isAuthenticated"><router-link class="nav-link" to="/login">Iniciar Sesión</router-link></li>
+                    <li v-if ="isAuthenticated" @click="logout"><router-link class="nav-link" to="/">Cerrar Sesión</router-link></li>
                 </div>
             </div>
         </div>
     </nav>
 </template>
+
+<script setup>
+import { useAuthStore } from '../stores';
+const logout = ()=>{
+    useAuthStore().logout;
+}
+</script>
 
 <style scoped>
 .navbar {
