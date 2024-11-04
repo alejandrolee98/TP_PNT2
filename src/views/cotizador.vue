@@ -1,6 +1,8 @@
 <template>
   <div class="container">
     <h1>Cotizador de Proyectos</h1>
+    
+    <p>Prueba de carga</p> <!-- Esto debería mostrarse si la vista cotizador se carga correctamente -->
     <FormularioCotizador @guardar-proyecto="guardarProyecto" />
   </div>
 </template>
