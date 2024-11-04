@@ -1,7 +1,7 @@
 <template>
     <div class="container text-center my-5">
         <h1 class="display-4 mb-4">Bienvenido a nuestro Calculador de Proyectos de Impresión 3D</h1>
-        <p class="lead mb-4">Aquí podrás calcular el costo y el tiempo de impresión de tus proyectos.</p>
+        <p class="lead mb-4">Aquí podrás calcular el costo y ordenar tus proyectos de impresión 3D.</p>
         
         <router-link to="/cotizador" class="btn btn-secondary btn-lg">Ir al Cotizador</router-link>
     </div>
