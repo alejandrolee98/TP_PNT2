@@ -7,6 +7,9 @@
     </div>
 </template>
 
+<script setup>
+</script>
+
 <style scoped>
 .container {
     background-color: #0e0d0c; /* Color de fondo claro */

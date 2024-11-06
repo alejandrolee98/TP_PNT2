@@ -11,9 +11,9 @@
                 <div class="navbar-nav ms-auto">
                     <li><router-link class="nav-link" to="/">Home</router-link></li>
                     <li><router-link class="nav-link" to="/cotizador">Cotizador</router-link></li>
-                    <li v-if ="isAuthenticated"><router-link class="nav-link" to="/perfil">Perfil</router-link></li>
-                    <li v-if ="!isAuthenticated"><router-link class="nav-link" to="/login">Iniciar Sesión</router-link></li>
-                    <li v-if ="isAuthenticated" @click="logout"><router-link class="nav-link" to="/">Cerrar Sesión</router-link></li>
+                    <li v-if ="authStore.isAuthenticated"><router-link class="nav-link" to="/perfil">Perfil</router-link></li>
+                    <li v-if ="!authStore.isAuthenticated"><router-link class="nav-link" to="/login">Iniciar Sesión</router-link></li>
+                    <li v-if ="authStore.isAuthenticated" @click="logout"><router-link class="nav-link" to="/">Cerrar Sesión</router-link></li>
                 </div>
             </div>
         </div>
@@ -21,9 +21,10 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '../stores';
+import { useAuthStore } from '../stores/index.js';
+const authStore = useAuthStore();
 const logout = ()=>{
-    useAuthStore().logout;
+    authStore.logout();
 }
 </script>
 
