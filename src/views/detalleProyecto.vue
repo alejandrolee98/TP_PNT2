@@ -1,57 +1,59 @@
 <template>
-    <div class="container">
-      <h2>Detalle del Proyecto</h2>
-      <dl class="row details-info">
-        <dt class="col-sm-3">Descripción</dt>
-        <dd class="col-sm-9">Proyecto 1</dd>
-        
-        <dt class="col-sm-3">Ancho</dt>
-        <dd class="col-sm-9">5 cm</dd>
-        
-        <dt class="col-sm-3">Alto</dt>
-        <dd class="col-sm-9">5 cm</dd>
-        
-        <dt class="col-sm-3">Grosor</dt>
-        <dd class="col-sm-9">5 cm</dd>
-        
-        <dt class="col-sm-3">Cantidad de Colores</dt>
-        <dd class="col-sm-9">3</dd>
-        
-        <dt class="col-sm-3">Cantidad de Unidades</dt>
-        <dd class="col-sm-9">1</dd>
-        
-        <dt class="col-sm-3">Tipo</dt>
-        <dd class="col-sm-9">Iman</dd>
-        
-        <dt class="col-sm-3">Costo Unitario</dt>
-        <dd class="col-sm-9"><strong>$234</strong></dd>
-        
-        <dt class="col-sm-3">Costo Total</dt>
-        <dd class="col-sm-9"><strong>$234</strong></dd>
-      </dl>
-      <div class="text-center">
-        <router-link class="nav-link" to="/cotizador"><button class="btn btn-secondary">Volver al Cotizador</button></router-link>
+  <div class="container">
+    <div class="card">
+      <div class="card-header" v-if="authStore.isAuthenticated">
+        <h1>Proyectos de {{ authStore.user.nombre }}</h1>
+      </div>
+      <div class="card-body">
+        <div v-if="proyecto">
+          <h6>Descripción del proyecto: {{ proyecto.descripcion }}</h6>
+          <h6>Dimensiones: {{ proyecto.ancho }} x {{ proyecto.alto }} x {{ proyecto.grosor }}</h6>
+          <h6>Tipo: {{ proyecto.tipo }}</h6>
+          <h6>Material: {{ proyecto.material }}</h6>
+          <h6>Cantidad de colores: {{ proyecto.cantidadColores }}</h6>
+          <h6>Cantidad: {{ proyecto.cantidad }}</h6>
+          <h6>Costo total: {{ proyecto.costoTotal.toFixed(2) }}</h6>
+        </div>
+        <button class="btn btn-primary">Editar datos</button>
       </div>
     </div>
-  </template>
-  
-  <script setup>
+  </div>
+</template>
 
-  </script>
-  
-  <style scoped>
-  .container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+<script setup>
+import { onMounted, ref } from 'vue';
+import axios from 'axios';
+import { useRoute } from 'vue-router';
+import { useAuthStore } from '../stores';
+
+const authStore = useAuthStore();
+const route = useRoute();
+const proyecto = ref(null);
+
+// Obtener el proyecto usando el userId y proyectoId
+const fetchProyecto = async () => {
+  const userId = authStore.user.id;
+  const proyectoId = route.params.proyectoId; // Obtener el proyectoId de la ruta
+
+  try {
+    const response = await axios.get(
+      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+    );
+    proyecto.value = response.data;
+  } catch (error) {
+    console.error('Error al recuperar el proyecto:', error);
   }
-  .details-info dt {
-    font-weight: bold;
-  }
-  .details-info dd {
-    margin-bottom: 10px;
-  }
-  </style>
+};
+
+onMounted(() => {
+  fetchProyecto();
+});
+</script>
+
+<style scoped>
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+</style>
