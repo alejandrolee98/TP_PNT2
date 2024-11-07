@@ -1,7 +1,7 @@
 <template> 
     <div class="container">
       <h1>Cotizador</h1>
-      <form @submit.prevent="calcularCostoTotal">
+      <form @submit.prevent="calcularCostoTotal" >
         <div class="mb-3">
           <label for="descripcion" class="form-label">Descripcion</label>
           <input type="text" v-model="descripcion" class="form-control" id="descripcion" placeholder="Descripcion del producto">
@@ -19,7 +19,7 @@
           <input type="number" v-model.number="grosor" class="form-control" id="grosor" placeholder="En centimetros">
         </div>
         
-        <label for="tipo" class="form-label">Tipo</label>
+        <label for="tipo" class="form-label">Tipo</label> <!-- Despliega listado -->
         <select v-model="tipo" class="form-select form-select-lg mb-3">
           <option selected disabled>Elige un tipo</option>
           <option value="iman">Imán</option>
@@ -27,7 +27,7 @@
           <option value="otro">Otro</option>
         </select>
   
-        <label for="material" class="form-label">Material</label>
+        <label for="material" class="form-label">Material</label> <!-- Despliega listado -->
         <select v-model="material" class="form-select form-select-lg mb-3">
           <option selected disabled>Elige material</option>
           <option value="economico">Económico</option>
@@ -46,7 +46,7 @@
         </div>
   
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button class="btn btn-primary me-md-2" type="submit">Enviar</button>
+          <button v-if="authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button" @click="guardarProyecto">Enviar</button>
           <button class="btn btn-danger" type="button" @click="cancelar">Cancelar</button>
         </div>
       </form>
@@ -55,7 +55,15 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue';
+ import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores';
+
+const router = useRouter();
+const authStore = useAuthStore();
+
+ // Seteo inicial de parametros
   
   const descripcion = ref('');
   const ancho = ref(0);
@@ -74,6 +82,7 @@
   };
   
   const calcularCostoBase = () => {
+    //devuelve coeficiente segun tipo
     switch (tipo.value) {
       case 'iman': return 50;
       case 'figura': return 100;
@@ -83,6 +92,7 @@
   };
   
   const calcularCosto = () => {
+    // calcula costo unitario del proyecto
     const costoBase = calcularCostoBase();
     const tamaño = ancho.value * alto.value * grosor.value;
     const costoPorColor = 20;
@@ -91,10 +101,12 @@
   };
   
   const calcularCostoTotal = () => {
+    // calcula costo total (costo base *  cantidad de unidades)
     costoTotal.value = calcularCosto() * cantidad.value;
   };
   
   const cancelar = () => {
+    // vuelve los parametros al valor inicial
     descripcion.value = '';
     ancho.value = 0;
     alto.value = 0;
@@ -105,7 +117,36 @@
     cantidad.value = 1;
     costoTotal.value = 0;
   };
-  </script>
+
+  // Agrega la función para guardar el proyecto en MockAPI
+const guardarProyecto = async () => {
+  if (!authStore.isAuthenticated) {
+    console.warn('Usuario no autenticado');
+    return;
+  }
+
+  try {
+    const userId = authStore.user.id;
+    const response = await axios.post(`https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto`, {
+      descripcion: descripcion.value,
+      ancho: ancho.value,
+      alto: alto.value,
+      grosor: grosor.value,
+      tipo: tipo.value,
+      material: material.value,
+      cantidadColores: cantidadColores.value,
+      cantidad: cantidad.value,
+      costoTotal: costoTotal.value,
+    });
+    console.log('Proyecto guardado:', response.data);
+    cancelar(); // Limpia los campos después de guardar
+    router.push('/detalleProyecto'); // Cambia '/detalleProyecto'
+
+  } catch (error) {
+    console.error('Error al guardar el proyecto:', error);
+  }
+}
+</script>
   
   <style scoped>
   .container {
