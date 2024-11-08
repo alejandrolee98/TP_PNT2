@@ -13,7 +13,8 @@
 
 <style scope>
 footer{
-    background-color: var(--primary-color);
+    background-color: black;
     font-weight:bold;
+    color: var(--primary-color);
 }
 </style>
