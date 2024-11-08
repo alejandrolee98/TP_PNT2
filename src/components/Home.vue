@@ -3,7 +3,7 @@
         <h1 class="display-4 mb-4">Bienvenido a nuestro Calculador de Proyectos de Impresión 3D</h1>
         <p class="lead mb-4">Aquí podrás calcular el costo y ordenar tus proyectos de impresión 3D.</p>
         
-        <router-link to="/cotizador" class="btn btn-secondary btn-lg">Ir al Cotizador</router-link>
+        <router-link to="/cotizador" class="btn btn-secondary btn-lg">NUEVA COTIZACIÓN</router-link>
     </div>
 </template>
 
@@ -31,11 +31,21 @@ h1 {
     color: var(--primary-color);; /* Color del encabezado */
     font-weight: bold; /* Hacer el texto en negrita */
     text-shadow: 2px 2px 4px rgba(18, 17, 17, 0.975); /* Sombra de texto */
+    text-transform: uppercase;
+    font-size: 40px;
 }
 
 p {
     color: #fffafa; /* Color del texto */
     font-weight: bold; /* Hacer el texto en negrita */
     text-shadow: 1px 1px 3px rgba(3, 3, 3, 0.7); /* Sombra de texto */
+    text-transform: uppercase;
+}
+.btn-secondary {
+    margin-top: 1rem;
+    background-color: black;
+    color: var(--primary-color);
+    font-weight: 800;
+    font-size: 15px;
 }
 </style>
