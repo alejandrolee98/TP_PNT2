@@ -2,14 +2,25 @@
     --primary-color: rgb(255, 140, 0);
     --primary-color-hover: rgb(201, 111, 0);
     --secondary-color: #333333;
+    --h1-size: 1.5rem;
+
 }
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: black;
+    background-color: black !important;
 }
 /* Fuente*/
 * {
     font-family: 'Roboto', sans-serif;
+}
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height:fit-content;
+}
+
+h1 {
+    text-transform: uppercase;
 }
