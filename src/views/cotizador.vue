@@ -47,6 +47,7 @@
   
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <button v-if="authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button" @click="guardarProyecto">Enviar</button>
+          <button v-if="!authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button" @click="registrarme">Registrarme</button>
           <button class="btn btn-danger" type="button" @click="cancelar">Cancelar</button>
         </div>
       </form>
@@ -145,6 +146,10 @@ const guardarProyecto = async () => {
   } catch (error) {
     console.error('Error al guardar el proyecto:', error);
   }
+};
+
+const registrarme = ()=>{
+  router.push('/registrar/nuevo');
 }
 </script>
   

@@ -7,6 +7,7 @@ import perfil from '../views/perfil.vue';
 import login from '../views/login.vue';
 import detalleProyecto from '../views/detalleProyecto.vue';
 import AdminDashboard from '../components/AdminDashboard.vue';
+import PostRegistrar from '../components/PostRegistrar.vue';
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
@@ -15,6 +16,9 @@ const routes = [
     { path: '/login', name: 'Login', component: login },
     { path: '/detalleProyecto', name: 'Detalle', component: detalleProyecto },
     { path: '/admin', name:'Admin', component: AdminDashboard, meta: {requiereAuth: true, role: 'admin' } },
+    { path: '/registrar/nuevo', name:'Registrar', component: PostRegistrar },
+    { path: '/registrar/editar/:id', name:'Editar', component: PostRegistrar },
+
 ];
 
 const router = createRouter({
