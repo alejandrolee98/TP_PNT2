@@ -38,10 +38,9 @@
             </button>
 
             <button
-              type="submit"
               class="login btn btn-lg w-50 ms-2"
               style="background-color: var(--primary-color); color: white;"
-              @click="login"
+              @click="registrarme"
             >
               Registrarme
             </button>
@@ -71,6 +70,10 @@ if(authStore.isAuthenticated){
     router.push('/');
   }
 }
+}
+
+const registrarme = ()=>{
+  router.push('/registrar/nuevo');
 }
 </script>
 
