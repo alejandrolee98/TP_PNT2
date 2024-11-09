@@ -18,10 +18,10 @@ import Footer from './components/Footer.vue';
 
 <style>
 .bg-image {
-    background-image: url('@/images/tu-imagen.png'); /* Cambia 'tu-imagen.png' por el nombre real de tu imagen */
-    background-repeat: repeat; /* Repetir la imagen */
-    background-size: auto; /* Ajustar automáticamente el tamaño */
-    height: 100%; /* Asegúrate de que el contenedor tenga altura completa */
-    margin: 0; /* Eliminar márgenes */
+    background-image: url('@/images/tu-imagen.png'); 
+    background-repeat: repeat; 
+    background-size: auto; 
+    height: 100%; 
+    margin: 0; 
 }
 </style>

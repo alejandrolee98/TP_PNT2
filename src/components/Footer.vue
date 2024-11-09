@@ -16,5 +16,6 @@ footer{
     background-color: black;
     font-weight:bold;
     color: var(--primary-color);
+    position: relative;
 }
 </style>

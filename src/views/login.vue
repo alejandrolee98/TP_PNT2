@@ -2,7 +2,7 @@
     <div class="bg-black min-vh-100 d-flex flex-column align-items-center pt-5">
       <div class="card bg-transparent border-0" style="width: 400px;">
         <div class="card-body">
-          <h1 class="text-white text-center mb-4">LOGIN</h1>
+          <h1 class="text-white text-center mb-4">Login</h1>
           <form @submit.prevent="handleLogin">
             <!-- Username -->
             <div class="mb-3">
@@ -84,6 +84,9 @@
   </script>
  
   <style scoped>
+  .form-control-lg {
+    font-size: 0.9rem;
+  }
   .form-control:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
@@ -102,5 +105,7 @@
   button.login {
     font-weight:bold;
   }
-  
+  h1 {
+    font-size: var(--h1-size);
+  }
   </style>

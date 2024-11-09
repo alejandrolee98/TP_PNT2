@@ -1,5 +1,5 @@
 <template> 
-    <div class="container">
+    <div class="cotizador container">
       <h1>Cotizador</h1>
       <form @submit.prevent="calcularCostoTotal" >
         <div class="mb-3">
@@ -149,7 +149,61 @@ const guardarProyecto = async () => {
 </script>
   
   <style scoped>
+  .form-select, .form-control {
+    background-color: rgba(55, 55, 55, 0.8); /* Fondo del select cerrado */
+    color: var(--primary-color); /* Color del texto del select */
+    border: 1px solid var(--primary-color); /* Borde del select */
+    font-size: 0.9rem;
+  }
+
+.form-select option {
+    background-color: #333; /* Fondo de cada opción */
+    color: var(--primary-color); /* Color de texto de cada opción */
+    border: none; /* Elimina el borde blanco alrededor de la opción seleccionada */
+  }
+
+.form-select option:checked {
+    background-color: #333; /* Fondo de la opción seleccionada */
+    color: var(--primary-color); /* Color de texto de la opción seleccionada */
+  }
+
+
+.form-select option:hover {
+    background-color: var(--primary-color); /* Fondo al pasar el cursor */
+    color: black; /* Color del texto al pasar el cursor */
+}
+ 
   .container {
     max-width: 600px;
+    margin-bottom: 2rem;
   }
-  </style>
+  .cotizador {
+    margin-top: 4rem;
+    margin-bottom: 5rem;
+  }
+  .cotizador h1 {
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .cotizador label {
+    color: white;
+    font-size: 0.9rem;
+  }
+  h1 {
+    font-size: var(--h1-size);
+  }
+  .btn-danger {
+    background-color: var(--primary-color) !important;
+    border-color:  var(--primary-color);
+    font-weight: bold;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .btn-danger:hover {
+    background-color: var(--primary-color-hover) !important;
+    border-color: var(--primary-color-hover);
+    font-weight: bold;
+  }
+</style>
