@@ -14,12 +14,18 @@
                 <h6>Localidad: {{authStore.user.localidad}}</h6>
                 <h6>CP: {{authStore.user.cp}}</h6>
                 <h6>Provincia: {{authStore.user.provincia}}</h6>
-                <button href="#" class="btn btn-primary">Editar datos</button>
+                <button @click="goToEdit(authStore.user.id)" class="btn btn-primary">Editar datos</button>
             </div>
         </div>
     </div>
 </template>
 <script setup>
 import { useAuthStore } from '../stores';
+import { useRouter } from 'vue-router';
 const authStore = useAuthStore();
+const router = useRouter();
+
+const goToEdit = (id) =>{
+    router.push(`/registrar/editar/${id}`);
+}
 </script>
