@@ -183,17 +183,16 @@ const guardarProyecto = async () => {
   }
   .cotizador h1 {
     margin-bottom: 2rem;
-    color: var(--primary-color);
+    color: white;
     font-weight: bold;
     text-transform: uppercase;
+    font-size: var(--h1-size);
   }
   .cotizador label {
     color: white;
     font-size: 0.9rem;
   }
-  h1 {
-    font-size: var(--h1-size);
-  }
+
   .btn-danger {
     background-color: var(--primary-color) !important;
     border-color:  var(--primary-color);

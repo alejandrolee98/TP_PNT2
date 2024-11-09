@@ -14,8 +14,8 @@
 <style scope>
 footer{
     background-color: black;
-    font-weight:bold;
-    color: var(--primary-color);
+    color: white;
     position: relative;
+    font-size: 0.8rem;
 }
 </style>
