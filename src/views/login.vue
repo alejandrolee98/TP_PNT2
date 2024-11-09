@@ -101,6 +101,9 @@ padding: 0.3rem;
 .ms-2 {
   margin-left: 2rem !important;
 }
+h1 {
+    font-size: var(--h1-size);
+}
 </style>
 
   // export default {
