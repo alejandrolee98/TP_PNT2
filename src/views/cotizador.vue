@@ -74,6 +74,7 @@ const authStore = useAuthStore();
   const cantidadColores = ref(0);
   const cantidad = ref(1);
   const costoTotal = ref(0);
+  const costoUnitario = ref(0);
   
   const materiales = {
     economico: 1.0,
@@ -96,13 +97,14 @@ const authStore = useAuthStore();
     const costoBase = calcularCostoBase();
     const tamaño = ancho.value * alto.value * grosor.value;
     const costoPorColor = 20;
-    const costoUnitario = (costoBase + tamaño * 0.1 + cantidadColores.value * costoPorColor) * materiales[material.value];
-    return costoUnitario;
+    costoUnitario.value = (costoBase + tamaño * 0.1 + cantidadColores.value * costoPorColor) * materiales[material.value];
+    return costoUnitario.value;
   };
   
   const calcularCostoTotal = () => {
     // calcula costo total (costo base *  cantidad de unidades)
-    costoTotal.value = calcularCosto() * cantidad.value;
+    calcularCosto(); 
+  costoTotal.value = costoUnitario.value * cantidad.value;
   };
   
   const cancelar = () => {
@@ -125,6 +127,8 @@ const guardarProyecto = async () => {
     return;
   }
 
+  calcularCostoTotal();
+
   try {
     const userId = authStore.user.id;
     const response = await axios.post(`https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto`, {
@@ -136,11 +140,13 @@ const guardarProyecto = async () => {
       material: material.value,
       cantidadColores: cantidadColores.value,
       cantidad: cantidad.value,
+      costoUnitario: costoUnitario.value,
       costoTotal: costoTotal.value,
     });
     console.log('Proyecto guardado:', response.data);
+    const proyectoId = response.data.id; // Obtener el ID del proyecto recién creado
     cancelar(); // Limpia los campos después de guardar
-    router.push('/detalleProyecto'); // Cambia '/detalleProyecto'
+    router.push({ name: 'Detalle', params: { proyectoId } }); // Redirige a la vista detalleProyecto con el proyectoId
 
   } catch (error) {
     console.error('Error al guardar el proyecto:', error);
