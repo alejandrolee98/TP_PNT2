@@ -55,9 +55,10 @@ const authStore = useAuthStore();
 const form = ref ({
     nombre : '',
     apellido : '',
+    role:'user',
     email : '',
     pass : '',
-    direccioin : '',
+    direccion : '',
     localidad : '',
     cp : '',
     provincia : '',

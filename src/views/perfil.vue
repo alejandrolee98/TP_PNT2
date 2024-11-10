@@ -2,7 +2,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header" v-if="authStore.isAuthenticated">
-                <h1>Bienvenido {{authStore.user.nombre}}</h1> <!--agregar el nombre recuperando el id-->
+                <h1>Perfil de {{authStore.user.nombre}}</h1> <!--agregar el nombre recuperando el id-->
             </div>
             <div class="card-body">
                 <!--agregar datos recuperando el id-->
