@@ -17,6 +17,8 @@
           <h6>COSTO TOTAL: ${{ proyecto.costoTotal.toFixed(2) }}</h6>
         </div>
         <button class="btn btn-primary">Editar datos</button>
+        <button class="btn btn-primary">Comprar</button>
+        <button class="btn btn-danger">Eliminar</button>
       </div>
     </div>
   </div>
@@ -49,6 +51,47 @@ const fetchProyecto = async () => {
     proyecto.value = response.data;
   } catch (error) {
     console.error('Error al recuperar el proyecto:', error);
+  }
+};
+// Comprar
+const comprarProyecto = async () => {
+  const userId = authStore.user.id;
+
+  if (!userId) {
+    console.error("User ID no está definido");
+    return;
+  }
+
+  try {
+    const response = await axios.post(
+      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`,
+      proyecto.value // Enviar los datos del proyecto actual
+    );
+    console.log('Proyecto comprado:', response.data);
+    alert('Proyecto comprado exitosamente');
+  } catch (error) {
+    console.error('Error al comprar el proyecto:', error);
+  }
+};
+
+// Eliminar
+const eliminarProyecto = async () => {
+  const userId = authStore.user.id;
+  const proyectoId = route.params.proyectoId;
+
+  if (!userId || !proyectoId) {
+    console.error('userId o proyectoId no definidos');
+    return;
+  }
+
+  try {
+    await axios.delete(
+      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+    );
+    alert('Proyecto eliminado');
+    router.push('/proyectos'); // Redirigir a la lista de proyectos después de eliminar
+  } catch (error) {
+    console.error('Error al eliminar el proyecto:', error);
   }
 };
 
