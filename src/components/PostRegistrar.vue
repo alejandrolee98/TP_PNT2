@@ -125,14 +125,14 @@ const cancelar = () => {
   h1 {
     font-size: var(--h1-size);
   }
-  .btn-danger {
+  button {
     background-color: var(--primary-color) !important;
     border-color:  var(--primary-color);
     font-weight: bold;
     margin-top: 1rem;
     font-size: 0.9rem;
   }
-  .btn-danger:hover {
+  button {
     background-color: var(--primary-color-hover) !important;
     border-color: var(--primary-color-hover);
     font-weight: bold;
