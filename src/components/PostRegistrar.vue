@@ -4,35 +4,35 @@
       <form @submit.prevent="crearNuevoUsuario" >
         <div class="mb-3">
           <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" v-model="form.nombre" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+          <input type="text" v-model="form.nombre" class="form-control" id="nombre" placeholder="Ingrese su nombre" required>
         </div>
         <div class="mb-3">
           <label for="apellido" class="form-label">Apellido</label>
-          <input type="text" v-model="form.apellido" class="form-control" id="apellido" placeholder="Ingrese su apellido">
+          <input type="text" v-model="form.apellido" class="form-control" id="apellido" placeholder="Ingrese su apellido" required>
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
-          <input type="email" v-model="form.email" class="form-control" id="email" placeholder="usuario@ejemplo.com">
+          <input type="email" v-model="form.email" class="form-control" id="email" placeholder="usuario@ejemplo.com" required>
         </div>
         <div class="mb-3">
           <label for="pass" class="form-label">Contraseña</label>
-          <input type="password" v-model="form.pass" class="form-control" id="pass" placeholder="Contraseña">
+          <input type="password" v-model="form.pass" class="form-control" id="pass" placeholder="Contraseña" required>
         </div>
         <div class="mb-3">
           <label for="direccion" class="form-label">Dirección</label>
-          <input type="text" v-model="form.direccion" class="form-control" id="direccion" placeholder="Dirección">
+          <input type="text" v-model="form.direccion" class="form-control" id="direccion" placeholder="Dirección" required>
         </div>
         <div class="mb-3">
           <label for="localidad" class="form-label">Localidad</label>
-          <input type="text" v-model="form.localidad" class="form-control" id="localidad" placeholder="Localidad">
+          <input type="text" v-model="form.localidad" class="form-control" id="localidad" placeholder="Localidad" required>
         </div>
         <div class="mb-3">
           <label for="cp" class="form-label">Codigo Postal</label>
-          <input type="number" v-model="form.cp" class="form-control" id="cp" placeholder="Codigo postal">
+          <input type="number" v-model="form.cp" class="form-control" id="cp" placeholder="Codigo postal" required>
         </div>
         <div class="mb-3">
           <label for="provincia" class="form-label">Provincia</label>
-          <input type="provincia" v-model="form.provincia" class="form-control" id="provincia" placeholder="Provincia">
+          <input type="provincia" v-model="form.provincia" class="form-control" id="provincia" placeholder="Provincia" required>
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <button v-if="!authStore.isAuthenticated" class="btn btn-primary me-md-2" type="submit">Registrarme</button>
