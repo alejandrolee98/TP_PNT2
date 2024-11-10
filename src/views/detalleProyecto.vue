@@ -17,8 +17,8 @@
           <h6>COSTO TOTAL: ${{ proyecto.costoTotal.toFixed(2) }}</h6>
         </div>
         <button class="btn btn-primary">Editar datos</button>
-        <button class="btn btn-primary">Comprar</button>
-        <button class="btn btn-danger">Eliminar</button>
+        <button class="btn btn-primary" @click="comprarProyecto">Comprar</button>
+        <button class="btn btn-danger" @click="eliminarProyecto">Eliminar</button>
       </div>
     </div>
   </div>
