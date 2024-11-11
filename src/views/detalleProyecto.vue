@@ -17,7 +17,7 @@
           <h6>COSTO TOTAL: ${{ proyecto.costoTotal.toFixed(2) }}</h6>
         </div>
         <button class="btn btn-primary">Editar datos</button>
-        <button class="btn btn-primary" @click="comprarProyecto">Comprar</button>
+        <button class="btn btn-primary" @click="hacerPedido">Hacer pedido</button>
         <button class="btn btn-danger" @click="eliminarProyecto">Eliminar</button>
       </div>
     </div>
@@ -46,15 +46,15 @@ const fetchProyecto = async () => {
 
   try {
     const response = await axios.get(
-      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+      `https://673147677aaf2a9aff104361.mockapi.io/api/users/${userId}/proyecto/${proyectoId}` 
     );
     proyecto.value = response.data;
   } catch (error) {
     console.error('Error al recuperar el proyecto:', error);
   }
 };
-// Comprar
-const comprarProyecto = async () => {
+// Realizar pedido
+const hacerPedido = async () => {
   const userId = authStore.user.id;
 
   if (!userId) {
@@ -64,7 +64,7 @@ const comprarProyecto = async () => {
 
   try {
     const response = await axios.post(
-      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`,
+      `https://673147677aaf2a9aff104361.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`,
       proyecto.value // Enviar los datos del proyecto actual
     );
     console.log('Proyecto comprado:', response.data);
@@ -86,7 +86,7 @@ const eliminarProyecto = async () => {
 
   try {
     await axios.delete(
-      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+      `https://673147677aaf2a9aff104361.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
     );
     alert('Proyecto eliminado');
     router.push('/proyectos'); // Redirigir a la lista de proyectos después de eliminar
