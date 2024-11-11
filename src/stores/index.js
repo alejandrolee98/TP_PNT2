@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async login (email, password) {
       try {
-        const response = await axios.get('https://672aac89976a834dd0240f81.mockapi.io/api/users')
+        const response = await axios.get('https://673147677aaf2a9aff104361.mockapi.io/api/users')
         const user = response.data.find(u => u.email === email && u.pass === password);
 
         if (user) {
