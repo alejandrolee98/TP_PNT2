@@ -17,6 +17,8 @@
           <h6>COSTO TOTAL: ${{ proyecto.costoTotal.toFixed(2) }}</h6>
         </div>
         <button class="btn btn-primary">Editar datos</button>
+        <button class="btn btn-primary" @click="hacerPedido">Hacer pedido</button>
+        <button class="btn btn-danger" @click="eliminarProyecto">Eliminar</button>
       </div>
     </div>
   </div>
@@ -25,12 +27,13 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '../stores';
 
 const authStore = useAuthStore();
 const route = useRoute();
 const proyecto = ref(null);
+const router = useRouter();
 
 // Obtener el proyecto usando el userId y proyectoId
 const fetchProyecto = async () => {
@@ -51,6 +54,49 @@ const fetchProyecto = async () => {
     console.error('Error al recuperar el proyecto:', error);
   }
 };
+
+// Realizar pedido
+const hacerPedido = async () => {
+  const userId = authStore.user.id;
+
+  if (!userId) {
+    console.error("User ID no está definido");
+    return;
+  }
+
+  try {
+    const response = await axios.post(
+      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`,
+      proyecto.value // Enviar los datos del proyecto actual
+    );
+    console.log('Proyecto comprado:', response.data);
+    alert('Proyecto comprado exitosamente');
+  } catch (error) {
+    console.error('Error al comprar el proyecto:', error);
+  }
+};
+
+// Eliminar
+const eliminarProyecto = async () => {
+  const userId = authStore.user.id;
+  const proyectoId = route.params.proyectoId;
+
+  if (!userId || !proyectoId) {
+    console.error('userId o proyectoId no definidos');
+    return;
+  }
+
+  try {
+    await axios.delete(
+      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+    );
+    alert('Proyecto eliminado');
+    router.push('/cotizador'); // Redirigir a la lista de proyectos después de eliminar
+  } catch (error) {
+    console.error('Error al eliminar el proyecto:', error);
+  }
+};
+
 
 onMounted(() => {
   fetchProyecto();
