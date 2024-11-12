@@ -14,7 +14,7 @@ const routes = [
     { path: '/cotizador', name: 'cotizador', component: cotizador },
     { path: '/perfil', name: 'Perfil', component: perfil },
     { path: '/login', name: 'Login', component: login },
-    { path: '/detalleProyecto', name: 'Detalle', component: detalleProyecto },
+    { path: '/detalleProyecto/:proyectoId', name: 'Detalle', component: detalleProyecto }, // Ruta con parámetro proyectoId
     { path: '/admin', name:'Admin', component: AdminDashboard, meta: {requiereAuth: true, role: 'admin' } },
     { path: '/registrar/nuevo', name:'Registrar', component: PostRegistrar },
     { path: '/registrar/editar/:id', name:'Editar', component: PostRegistrar },
