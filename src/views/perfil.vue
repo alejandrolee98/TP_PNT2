@@ -58,7 +58,7 @@ const goToEdit = (id) =>{
     router.push(`/registrar/editar/${id}`);
 }
 </script>
-</script>
+
 
 <style scoped>
 .editarDatos, .listaProyecto {
