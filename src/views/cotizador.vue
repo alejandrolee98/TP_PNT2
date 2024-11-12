@@ -51,7 +51,6 @@
           <button class="btn btn-danger" type="button" @click="cancelar">Cancelar</button>
         </div>
       </form>
-      <p v-if="costoTotal">Costo total: {{ costoTotal.toFixed(2) }}</p>
     </div>
   </template>
   
