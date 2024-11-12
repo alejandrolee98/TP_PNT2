@@ -46,7 +46,7 @@ const fetchProyecto = async () => {
 
   try {
     const response = await axios.get(
-      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+      `https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
     );
     proyecto.value = response.data;
   } catch (error) {
@@ -66,7 +66,7 @@ const eliminarProyecto = async () => {
 
   try {
     await axios.delete(
-      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+      `https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
     );
     alert('Proyecto eliminado');
     router.push('/cotizador'); // Redirigir a la lista de proyectos después de eliminar

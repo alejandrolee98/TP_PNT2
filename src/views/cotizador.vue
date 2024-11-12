@@ -131,7 +131,7 @@ const guardarProyecto = async () => {
 
   try {
     const userId = authStore.user.id;
-    const response = await axios.post(`https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto`, {
+    const response = await axios.post(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${userId}/proyecto`, {
       descripcion: descripcion.value,
       ancho: ancho.value,
       alto: alto.value,
