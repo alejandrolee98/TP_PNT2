@@ -44,7 +44,7 @@ const fetchProyecto = async () => {
 
   try {
     const response = await axios.get(
-      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
     );
     proyecto.value = response.data;
   } catch (error) {
