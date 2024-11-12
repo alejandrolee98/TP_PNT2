@@ -19,8 +19,6 @@
         <button class="btn btn-primary">Editar datos</button>
         <button class="btn btn-primary" @click="hacerPedido">Hacer pedido</button>
         <button class="btn btn-danger" @click="eliminarProyecto">Eliminar</button>
-        <button class="btn btn-primary" @click="hacerPedido">Hacer pedido</button>
-        <button class="btn btn-danger" @click="eliminarProyecto">Eliminar</button>
       </div>
     </div>
   </div>
@@ -49,13 +47,35 @@ const fetchProyecto = async () => {
 
   try {
     const response = await axios.get(
-      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
     );
     proyecto.value = response.data;
   } catch (error) {
     console.error('Error al recuperar el proyecto:', error);
   }
 };
+
+// Eliminar
+const eliminarProyecto = async () => {
+  const userId = authStore.user.id;
+  const proyectoId = route.params.proyectoId;
+
+  if (!userId || !proyectoId) {
+    console.error('userId o proyectoId no definidos');
+    return;
+  }
+
+  try {
+    await axios.delete(
+      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+    );
+    alert('Proyecto eliminado');
+    router.push('/cotizador'); // Redirigir a la lista de proyectos después de eliminar
+  } catch (error) {
+    console.error('Error al eliminar el proyecto:', error);
+  }
+};
+
 
 onMounted(() => {
   fetchProyecto();
@@ -69,3 +89,4 @@ onMounted(() => {
   padding: 20px;
 }
 </style>
+
