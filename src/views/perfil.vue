@@ -38,8 +38,7 @@
                             <td>x</td>
                             <td>x</td>
                             <td>
-                                <button class="btn btn-edit">Editar</button>
-                                <button class="btn btn-delete">Eliminar</button>
+                                <button class="btn btn-edit">Ver detalle</button>
                             </td>
                         </tr>
                     </tbody>
