@@ -41,7 +41,7 @@ const fetchUsuario = async () =>{
             const projectResponse = await axios.get(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${user.id}/proyecto`);
             return { 
                 ...user,
-                proyecto: projectResponse.data || [0],
+                proyecto: projectResponse.data || [],
             };
         });
         datosInforme.value = proyectosCadaUsuario;
