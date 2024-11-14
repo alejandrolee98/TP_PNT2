@@ -6,7 +6,7 @@ import cotizador from '../views/cotizador.vue';
 import perfil from '../views/perfil.vue';
 import login from '../views/login.vue';
 import detalleProyecto from '../views/detalleProyecto.vue';
-import AdminDashboard from '../components/AdminDashboard.vue';
+import informe from '../views/informe.vue';
 import PostRegistrar from '../components/PostRegistrar.vue';
 
 const routes = [
@@ -15,7 +15,7 @@ const routes = [
     { path: '/perfil', name: 'Perfil', component: perfil },
     { path: '/login', name: 'Login', component: login },
     { path: '/detalleProyecto/:proyectoId', name: 'Detalle', component: detalleProyecto }, // Ruta con parámetro proyectoId
-    { path: '/admin', name:'Admin', component: AdminDashboard, meta: {requiereAuth: true, role: 'admin' } },
+    { path: '/admin', name:'Informe', component: informe, meta: {requiereAuth: true, role: 'admin' } },
     { path: '/registrar/nuevo', name:'Registrar', component: PostRegistrar },
     { path: '/registrar/editar/:id', name:'Editar', component: PostRegistrar },
 
