@@ -2,9 +2,9 @@
     <div class="container">
         <div class="card panelDatos">
             <div class="card-header" v-if="authStore.isAuthenticated">
-                <h1>Perfil de {{authStore.user.nombre}}</h1> <!--agregar el nombre recuperando el id-->
+                <h2>Perfil de {{authStore.user.nombre}}</h2> <!--agregar el nombre recuperando el id-->
             </div>
-            <div class="card-body editarDatos">
+            <div class="card-body">
                 <!--agregar datos recuperando el id-->
                 <h6>Nro de cliente: {{authStore.user.id}}</h6>
                 <h6>Nombre: {{authStore.user.nombre}}</h6>
@@ -14,13 +14,13 @@
                 <h6>Localidad: {{authStore.user.localidad}}</h6>
                 <h6>CP: {{authStore.user.cp}}</h6>
                 <h6>Provincia: {{authStore.user.provincia}}</h6>
-                <button @click="goToEdit(authStore.user.id)" class="btn btn-primary">Editar datos</button>
+                <button @click="goToEdit(authStore.user.id)" class="editarDatos btn btn-primary">Editar datos</button>
             </div>
             
         </div>
         <div class="card panelLista">
             <div class="card-header" v-if="authStore.isAuthenticated">
-                <h1>Lista de proyectos</h1> 
+                <h2>Proyectos</h2> 
             </div>
             <div class="card-body listaProyecto">
                 <table>
@@ -38,7 +38,9 @@
                             <td>{{ proyecto.tipo }}</td>
                             <td>{{ proyecto.costoTotal }}</td>
                             <td>
+
                                 <button class="btn btn-edit" @click="goDetalle(proyecto.id)">Ver detalle</button>
+
                             </td>
                         </tr>
                     </tbody>
@@ -48,8 +50,10 @@
         
     </div>
 </template>
+
 <script setup>
 import { useAuthStore } from '../stores';
+
 import { useRouter } from 'vue-router';
 import {ref,onMounted} from 'vue';
 import axios from 'axios';
@@ -81,10 +85,22 @@ onMounted(()=>{
 
 </script>
 
-
 <style scoped>
-.editarDatos, .listaProyecto {
-    margin-top: 1rem !important;
+.card {
+    background-color: rgb(0, 0, 0);
+    color: rgb(231, 224, 219);
+    padding: 1rem;
+}
+.card-body{
+    margin-top: 0;
+}
+h2 {
+    font-size: var(--h2-size);
+    color: var(--primary-color);
+}
+.editarDatos.btn.btn-primary {
+    margin-top: 1rem;
+    background-color: var(--primary-color);
 }
 
 .panelLista, .panelDatos {
@@ -97,29 +113,31 @@ table {
     margin-top: 1rem;
     font-size: 14px;
     text-align: left;
+    border-color: black !important;
 }
 
 th, td {
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: var(--primary-color);
     font-weight: bold;
+    color: black;
 }
 
 
 td:first-child, th:first-child {
-    text-align: left;
+    text-align: center;
 }
 
 td:nth-child(2), th:nth-child(2) {
-    text-align: left;
+    text-align: center;
 }
 
 td:nth-child(3), th:nth-child(3) {
-    text-align: right;
+    text-align: center;
 }
 
 /* Centrar los botones en la columna de acciones */
@@ -131,16 +149,16 @@ td:last-child, th:last-child {
 .actions-container {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 15px;
 }
 
 /* Estilo de filas alternadas */
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f9f9f938;
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f138;
 }
 
 /* Estilos de los botones */
@@ -157,15 +175,11 @@ tr:hover {
 }
 
 .btn-edit {
-    background-color: #4CAF50; /* Verde */
+    background-color: #4caf4fa1; /* Verde */
 }
 
 .btn-delete {
-    background-color: #f44336; /* Rojo */
-}
-
-.btn-order {
-    background-color: #008CBA; /* Azul */
+    background-color: #f443367c; /* Rojo */
 }
 
 .btn:hover {
