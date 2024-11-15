@@ -16,7 +16,7 @@
           <h6>Costo por unidad: ${{ proyecto.costoUnitario.toFixed(2)}} </h6>
           <h6>COSTO TOTAL: ${{ proyecto.costoTotal.toFixed(2) }}</h6>
         </div>
-        <button class="btn btn-primary">Editar datos</button>
+        <button class="btn btn-primary" @click="editarProyecto">Editar datos</button>
         <button class="btn btn-danger" @click="eliminarProyecto">Eliminar</button>
       </div>
     </div>
@@ -46,12 +46,30 @@ const fetchProyecto = async () => {
 
   try {
     const response = await axios.get(
-      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
     );
     proyecto.value = response.data;
   } catch (error) {
     console.error('Error al recuperar el proyecto:', error);
   }
+};
+
+//Editar
+const editarProyecto = () => {
+  router.push({
+    name: 'cotizador',
+    query: {
+      proyectoId: proyecto.value.id, // Incluye el ID del proyecto
+      descripcion: proyecto.value.descripcion,
+      ancho: proyecto.value.ancho,
+      alto: proyecto.value.alto,
+      grosor: proyecto.value.grosor,
+      tipo: proyecto.value.tipo,
+      material: proyecto.value.material,
+      cantidadColores: proyecto.value.cantidadColores,
+      cantidad: proyecto.value.cantidad
+    }
+  });
 };
 
 // Eliminar
@@ -66,7 +84,7 @@ const eliminarProyecto = async () => {
 
   try {
     await axios.delete(
-      `https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
+      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
     );
     alert('Proyecto eliminado');
     router.push('/cotizador'); // Redirigir a la lista de proyectos después de eliminar
