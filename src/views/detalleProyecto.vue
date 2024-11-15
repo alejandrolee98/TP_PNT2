@@ -205,9 +205,12 @@ h1 {
   border-radius: 4px;
   cursor: pointer;
 }
+.btn-edit:hover {
+  background-color: #23617096;
+}
 
 .btn-delete {
-  padding: 8px 1px;
+  padding: 6px 15px;
   background-color: #f44336be;
   color: white;
   border: none;
@@ -215,8 +218,8 @@ h1 {
   cursor: pointer;
 }
 
-.btn:hover {
-  opacity: 0.9;
+.btn-delete:hover {
+  background-color: #f443368a;
 }
 
 .button-container {

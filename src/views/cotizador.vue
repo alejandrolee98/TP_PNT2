@@ -47,7 +47,7 @@
   
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
           <button v-if="authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button" @click="guardarProyecto">Cotizar</button>
-          <button v-if="!authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button borrar" @click="registrarme">Registrarme</button>
+          <button v-if="!authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button registro" @click="registrarme">Registrarme</button>
           <button class="borrar btn btn-danger" type="button" @click="cancelar">Cancelar</button>
         </div>
       </form>
@@ -225,4 +225,5 @@ const registrarme = ()=>{
   button.borrar:hover {
     background-color: rgba(83, 56, 31, 0.616) !important;
   }
+
 </style>

@@ -6,9 +6,8 @@
             </div>
             <div class="card-body">
                 <!--agregar datos recuperando el id-->
-                <h6>Nro de cliente: {{authStore.user.id}}</h6>
-                <h6>Nombre: {{authStore.user.nombre}}</h6>
-                <h6>Apellido: {{authStore.user.apellido}}</h6>
+                <h6>Nro cliente: {{authStore.user.id}}</h6>
+                <h6>Nombre: {{authStore.user.nombre}} {{authStore.user.apellido}}</h6>
                 <h6>Email: {{authStore.user.email}}</h6>
                 <h6>Dirección: {{authStore.user.direccion}}</h6>
                 <h6>Localidad: {{authStore.user.localidad}}</h6>
@@ -98,13 +97,22 @@ h2 {
     font-size: var(--h2-size);
     color: var(--primary-color);
 }
+h6 {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    text-transform: capitalize;
+}
 .editarDatos.btn.btn-primary {
-    margin-top: 1rem;
+    margin-top: 1.8rem;
     background-color: var(--primary-color);
+    font-size: 1rem;
 }
 
 .panelLista, .panelDatos {
     margin-top: 3rem;
+}
+.panelLista {
+    margin-bottom: 3rem;
 }
 
 table {
@@ -125,9 +133,14 @@ th {
     background-color: var(--primary-color);
     font-weight: bold;
     color: black;
+    font-size: 1.1rem;
+    text-transform: uppercase;
 }
 
-
+td {
+    font-size: 1.1rem;
+    text-transform: capitalize;
+}
 td:first-child, th:first-child {
     text-align: center;
 }
@@ -157,10 +170,6 @@ tr:nth-child(even) {
     background-color: #f9f9f938;
 }
 
-tr:hover {
-    background-color: #f1f1f138;
-}
-
 /* Estilos de los botones */
 .btn {
     display: inline-block;
@@ -175,14 +184,16 @@ tr:hover {
 }
 
 .btn-edit {
-    background-color: #4caf4fa1; /* Verde */
+    background-color: #4ca8afa1; /* Verde */
 }
-
+.btn-edit:hover {
+    background-color: #4ca8af7c; /* Verde */
+}
 .btn-delete {
     background-color: #f443367c; /* Rojo */
 }
 
 .btn:hover {
-    opacity: 0.8;
+    opacity: 0.9;
 }
 </style>
