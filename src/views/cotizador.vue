@@ -46,9 +46,9 @@
         </div>
   
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-          <button v-if="authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button" @click="guardarProyecto">Enviar</button>
-          <button v-if="!authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button" @click="registrarme">Registrarme</button>
-          <button class="btn btn-danger" type="button" @click="cancelar">Cancelar</button>
+          <button v-if="authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button" @click="guardarProyecto">Cotizar</button>
+          <button v-if="!authStore.isAuthenticated" class="btn btn-primary me-md-2" type="button borrar" @click="registrarme">Registrarme</button>
+          <button class="borrar btn btn-danger" type="button" @click="cancelar">Cancelar</button>
         </div>
       </form>
     </div>
@@ -160,7 +160,7 @@ const registrarme = ()=>{
   
   <style scoped>
   .form-select, .form-control {
-    background-color: rgba(55, 55, 55, 0.8); /* Fondo del select cerrado */
+    background-color: rgba(0, 0, 0, 0.819); /* Fondo del select cerrado */
     color: var(--primary-color); /* Color del texto del select */
     border: 1px solid var(--primary-color); /* Borde del select */
     font-size: 0.9rem;
@@ -188,19 +188,21 @@ const registrarme = ()=>{
     margin-bottom: 2rem;
   }
   .cotizador {
-    margin-top: 4rem;
+    margin-top: 2rem;
     margin-bottom: 5rem;
   }
   .cotizador h1 {
     margin-bottom: 2rem;
-    color: white;
-    font-weight: bold;
+    color: var(--primary-color);
+    font-weight: bolder; 
     text-transform: uppercase;
     font-size: var(--h1-size);
   }
   .cotizador label {
-    color: white;
-    font-size: 0.9rem;
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0;
   }
 
   button {
@@ -210,9 +212,17 @@ const registrarme = ()=>{
     margin-top: 1rem;
     font-size: 0.9rem;
   }
- button {
+ button:hover {
     background-color: var(--primary-color-hover) !important;
     border-color: var(--primary-color-hover);
     font-weight: bold;
+  }
+  button.borrar {
+    background-color: black !important;
+    border-color:  var(--primary-color);
+    color: var(--primary-color) !important;
+  }
+  button.borrar:hover {
+    background-color: rgba(83, 56, 31, 0.616) !important;
   }
 </style>
