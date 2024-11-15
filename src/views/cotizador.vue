@@ -4,23 +4,23 @@
       <form @submit.prevent="calcularCostoTotal" >
         <div class="mb-3">
           <label for="descripcion" class="form-label">Descripcion</label>
-          <input type="text" v-model="descripcion" class="form-control" id="descripcion" placeholder="Descripcion del producto">
+          <input type="text" v-model="descripcion" class="form-control" id="descripcion" placeholder="Descripcion del producto" required>
         </div>
         <div class="mb-3">
           <label for="ancho" class="form-label">Ancho</label>
-          <input type="number" v-model.number="ancho" class="form-control" id="ancho" placeholder="En centimetros">
+          <input type="number" v-model.number="ancho" class="form-control" id="ancho" placeholder="En centimetros" required>
         </div>
         <div class="mb-3">
           <label for="alto" class="form-label">Alto</label>
-          <input type="number" v-model.number="alto" class="form-control" id="alto" placeholder="En centimetros">
+          <input type="number" v-model.number="alto" class="form-control" id="alto" placeholder="En centimetros" required>
         </div>
         <div class="mb-3">
           <label for="grosor" class="form-label">Grosor</label>
-          <input type="number" v-model.number="grosor" class="form-control" id="grosor" placeholder="En centimetros">
+          <input type="number" v-model.number="grosor" class="form-control" id="grosor" placeholder="En centimetros" required>
         </div>
         
         <label for="tipo" class="form-label">Tipo</label> <!-- Despliega listado -->
-        <select v-model="tipo" class="form-select form-select-lg mb-3">
+        <select v-model="tipo" class="form-select form-select-lg mb-3" required>
           <option selected disabled>Elige un tipo</option>
           <option value="iman">Imán</option>
           <option value="figura">Figura</option>
@@ -28,7 +28,7 @@
         </select>
   
         <label for="material" class="form-label">Material</label> <!-- Despliega listado -->
-        <select v-model="material" class="form-select form-select-lg mb-3">
+        <select v-model="material" class="form-select form-select-lg mb-3" required>
           <option selected disabled>Elige material</option>
           <option value="economico">Económico</option>
           <option value="premium">Premium</option>
@@ -37,12 +37,12 @@
   
         <div class="mb-3">
           <label for="color" class="form-label">Cantidad de colores</label>
-          <input type="number" v-model.number="cantidadColores" class="form-control" id="color" placeholder="0">
+          <input type="number" v-model.number="cantidadColores" class="form-control" id="color" placeholder="0" required>
         </div>
   
         <div class="mb-3">
           <label for="cantidad" class="form-label">Cantidad</label>
-          <input type="number" v-model.number="cantidad" class="form-control" id="cantidad" placeholder="0">
+          <input type="number" v-model.number="cantidad" class="form-control" id="cantidad" placeholder="0" required>
         </div>
   
         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
@@ -131,7 +131,7 @@ const guardarProyecto = async () => {
 
   try {
     const userId = authStore.user.id;
-    const response = await axios.post(`https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users/${userId}/proyecto`, {
+    const response = await axios.post(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${userId}/proyecto`, {
       descripcion: descripcion.value,
       ancho: ancho.value,
       alto: alto.value,

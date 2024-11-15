@@ -33,13 +33,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>x</td>
-                            <td>x</td>
-                            <td>x</td>
+                        <tr v-for="proyecto in proyectos" :key="proyecto.id">
+                            <td>{{ proyecto.descripcion }}</td>
+                            <td>{{ proyecto.tipo }}</td>
+                            <td>{{ proyecto.costoTotal }}</td>
                             <td>
-                                <button class="btn btn-edit">Editar</button>
-                                <button class="btn btn-delete">Eliminar</button>
+
+                                <button class="btn btn-edit" @click="goDetalle(proyecto.id)">Ver detalle</button>
+
                             </td>
                         </tr>
                     </tbody>
@@ -52,7 +53,36 @@
 
 <script setup>
 import { useAuthStore } from '../stores';
+
+import { useRouter } from 'vue-router';
+import {ref,onMounted} from 'vue';
+import axios from 'axios';
+
 const authStore = useAuthStore();
+const router = useRouter();
+const proyectos = ref([]);
+
+const goToEdit = (id) =>{
+    router.push(`/registrar/editar/${id}`);
+}
+
+const fetchProyecto = async () =>{
+    try {
+        const response = await axios.get(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${authStore.user.id}/proyecto`);
+        proyectos.value = response.data;
+    } catch (error) {
+        console.error('Error en el listado',error);
+    }
+}
+
+const goDetalle = (id)=>{
+    router.push(`/detalleProyecto/${id}`);
+}
+
+onMounted(()=>{
+    fetchProyecto();
+})
+
 </script>
 
 <style scoped>
