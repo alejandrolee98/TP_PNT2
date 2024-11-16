@@ -74,7 +74,7 @@ onMounted(() => {
 })
 
 const fetchPost = async () => {
-    const response = await axios.get(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${route.params.id}`);
+    const response = await axios.get(`https://672aac89976a834dd0240f81.mockapi.io/api/users/${route.params.id}`);
     form.value = response.data;
 }
 
@@ -82,10 +82,10 @@ const fetchPost = async () => {
 const crearNuevoUsuario = async () => {
     try {
         if(isEdit.value){
-            await axios.put(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${route.params.id}`, form.value);
+            await axios.put(`https://672aac89976a834dd0240f81.mockapi.io/api/users/${route.params.id}`, form.value);
             router.push('/perfil');
         }else{
-            await axios.post('https://6721850698bbb4d93ca89e32.mockapi.io/api/users', form.value);
+            await axios.post('https://672aac89976a834dd0240f81.mockapi.io/api/users', form.value);
             router.push('/login');
         }   
     } catch (error) {

@@ -55,72 +55,86 @@
   </template>
   
   <script setup>
- import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '../stores';
 
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
+const proyectoId = ref(null);
 
- // Seteo inicial de parametros
-  
-  const descripcion = ref('');
-  const ancho = ref(0);
-  const alto = ref(0);
-  const grosor = ref(0);
-  const tipo = ref('');
-  const material = ref('');
-  const cantidadColores = ref(0);
-  const cantidad = ref(1);
-  const costoTotal = ref(0);
-  const costoUnitario = ref(0);
-  
-  const materiales = {
-    economico: 1.0,
-    premium: 1.2,
-    alimentos: 1.5
-  };
-  
-  const calcularCostoBase = () => {
-    //devuelve coeficiente segun tipo
-    switch (tipo.value) {
-      case 'iman': return 50;
-      case 'figura': return 100;
-      case 'otro': return 75;
-      default: return 0;
-    }
-  };
-  
-  const calcularCosto = () => {
-    // calcula costo unitario del proyecto
-    const costoBase = calcularCostoBase();
-    const tamaño = ancho.value * alto.value * grosor.value;
-    const costoPorColor = 20;
-    costoUnitario.value = (costoBase + tamaño * 0.1 + cantidadColores.value * costoPorColor) * materiales[material.value];
-    return costoUnitario.value;
-  };
-  
-  const calcularCostoTotal = () => {
-    // calcula costo total (costo base *  cantidad de unidades)
-    calcularCosto(); 
+// Seteo inicial de parametros
+
+const descripcion = ref('');
+const ancho = ref(0);
+const alto = ref(0);
+const grosor = ref(0);
+const tipo = ref('');
+const material = ref('');
+const cantidadColores = ref(0);
+const cantidad = ref(1);
+const costoTotal = ref(0);
+const costoUnitario = ref(0);
+
+const materiales = {
+  economico: 1.0,
+  premium: 1.2,
+  alimentos: 1.5
+};
+
+// Lógica para cargar datos de edición
+onMounted(() => {
+  proyectoId.value = route.query.proyectoId || null; // Obtener el ID del proyecto si está disponible
+  console.log('proyectoId:', proyectoId.value); // Verifica el valor del proyectoId
+  descripcion.value = route.query.descripcion || '';
+  ancho.value = route.query.ancho ? parseFloat(route.query.ancho) : 0;
+  alto.value = route.query.alto ? parseFloat(route.query.alto) : 0;
+  grosor.value = route.query.grosor ? parseFloat(route.query.grosor) : 0;
+  tipo.value = route.query.tipo || '';
+  material.value = route.query.material || '';
+  cantidadColores.value = route.query.cantidadColores ? parseInt(route.query.cantidadColores) : 0;
+  cantidad.value = route.query.cantidad ? parseInt(route.query.cantidad) : 1;
+});
+
+// Funciones de cálculo
+const calcularCostoBase = () => {
+  switch (tipo.value) {
+    case 'iman': return 50;
+    case 'figura': return 100;
+    case 'otro': return 75;
+    default: return 0;
+  }
+};
+
+const calcularCosto = () => {
+  const costoBase = calcularCostoBase();
+  const tamaño = ancho.value * alto.value * grosor.value;
+  const costoPorColor = 20;
+  costoUnitario.value = (costoBase + tamaño * 0.1 + cantidadColores.value * costoPorColor) * materiales[material.value];
+  return costoUnitario.value;
+};
+
+const calcularCostoTotal = () => {
+  calcularCosto(); 
   costoTotal.value = costoUnitario.value * cantidad.value;
-  };
-  
-  const cancelar = () => {
-    // vuelve los parametros al valor inicial
-    descripcion.value = '';
-    ancho.value = 0;
-    alto.value = 0;
-    grosor.value = 0;
-    tipo.value = '';
-    material.value = '';
-    cantidadColores.value = 0;
-    cantidad.value = 1;
-    costoTotal.value = 0;
-  };
+};
 
-  // Agrega la función para guardar el proyecto en MockAPI
+// Función para resetear el formulario
+const cancelar = () => {
+  descripcion.value = '';
+  ancho.value = 0;
+  alto.value = 0;
+  grosor.value = 0;
+  tipo.value = '';
+  material.value = '';
+  cantidadColores.value = 0;
+  cantidad.value = 1;
+  costoTotal.value = 0;
+};
+
+// Función para guardar el proyecto en MockAPI
 const guardarProyecto = async () => {
   if (!authStore.isAuthenticated) {
     console.warn('Usuario no autenticado');
@@ -130,32 +144,62 @@ const guardarProyecto = async () => {
   calcularCostoTotal();
 
   try {
+
     const userId = authStore.user.id;
-    const response = await axios.post(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${userId}/proyecto`, {
-      descripcion: descripcion.value,
-      ancho: ancho.value,
-      alto: alto.value,
-      grosor: grosor.value,
-      tipo: tipo.value,
-      material: material.value,
-      cantidadColores: cantidadColores.value,
-      cantidad: cantidad.value,
-      costoUnitario: costoUnitario.value,
-      costoTotal: costoTotal.value,
-    });
-    console.log('Proyecto guardado:', response.data);
-    const proyectoId = response.data.id; // Obtener el ID del proyecto recién creado
+
+    if (proyectoId.value) {
+      // Actualizamos el proyecto existente con PUT
+      const response = await axios.put(
+
+        `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId.value}`,
+        
+        {
+          descripcion: descripcion.value,
+          ancho: ancho.value,
+          alto: alto.value,
+          grosor: grosor.value,
+          tipo: tipo.value,
+          material: material.value,
+          cantidadColores: cantidadColores.value,
+          cantidad: cantidad.value,
+          costoUnitario: costoUnitario.value,
+          costoTotal: costoTotal.value,
+        }
+      );
+      console.log('Proyecto actualizado:', response.data);
+    } else {
+      // Creamos un nuevo proyecto con POST
+      const userId = authStore.user.id;
+      const response = await axios.post(
+        `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto`,
+        {
+          descripcion: descripcion.value,
+          ancho: ancho.value,
+          alto: alto.value,
+          grosor: grosor.value,
+          tipo: tipo.value,
+          material: material.value,
+          cantidadColores: cantidadColores.value,
+          cantidad: cantidad.value,
+          costoUnitario: costoUnitario.value,
+          costoTotal: costoTotal.value,
+        }
+      );
+      console.log('Proyecto creado:', response.data);
+      proyectoId.value = response.data.id; // Guarda el ID del proyecto recién creado
+    }
+
     cancelar(); // Limpia los campos después de guardar
-    router.push({ name: 'Detalle', params: { proyectoId } }); // Redirige a la vista detalleProyecto con el proyectoId
+    router.push({ name: 'Detalle', params: { proyectoId: proyectoId.value } }); // Redirige a detalleProyecto
 
   } catch (error) {
-    console.error('Error al guardar el proyecto:', error);
+    console.error('Error al guardar o actualizar el proyecto:', error);
   }
 };
 
-const registrarme = ()=>{
+const registrarme = () => {
   router.push('/registrar/nuevo');
-}
+};
 </script>
   
   <style scoped>
