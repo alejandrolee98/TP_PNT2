@@ -74,7 +74,7 @@ onMounted(() => {
 })
 
 const fetchPost = async () => {
-    const response = await axios.get(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${route.params.id}`);
+    const response = await axios.get(`https://672aac89976a834dd0240f81.mockapi.io/api/users/${route.params.id}`);
     form.value = response.data;
 }
 
@@ -82,10 +82,10 @@ const fetchPost = async () => {
 const crearNuevoUsuario = async () => {
     try {
         if(isEdit.value){
-            await axios.put(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${route.params.id}`, form.value);
+            await axios.put(`https://672aac89976a834dd0240f81.mockapi.io/api/users/${route.params.id}`, form.value);
             router.push('/perfil');
         }else{
-            await axios.post('https://6721850698bbb4d93ca89e32.mockapi.io/api/users', form.value);
+            await axios.post('https://672aac89976a834dd0240f81.mockapi.io/api/users', form.value);
             router.push('/login');
         }   
     } catch (error) {
@@ -100,10 +100,9 @@ const cancelar = () => {
 
 <style scoped>
   .form-control {
-    background-color: rgba(55, 55, 55, 0.8); /* Fondo del select cerrado */
     color: var(--primary-color); /* Color del texto del select */
     border: 1px solid var(--primary-color); /* Borde del select */
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
   .container {
     max-width: 600px;
@@ -120,8 +119,10 @@ const cancelar = () => {
     text-transform: uppercase;
   }
   .registrar label {
-    color: white;
-    font-size: 0.9rem;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0;
   }
   h1 {
     font-size: var(--h1-size);
@@ -133,7 +134,7 @@ const cancelar = () => {
     margin-top: 1rem;
     font-size: 0.9rem;
   }
-  button {
+  button:hover {
     background-color: var(--primary-color-hover) !important;
     border-color: var(--primary-color-hover);
     font-weight: bold;
