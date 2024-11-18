@@ -1,30 +1,31 @@
 <template>
     <div class="card panelInforme">
-            <div class="card-header">
-                <h1>Informe de usuarios</h1> 
-            </div>
-            <div class="card-body informeAdmin">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
-                            <th>Cantidad de Proyectos</th>
-                            <th>Monto total de Proyectos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="users in usuarios" :key="users.id">
-                            <td>{{ users.id }}</td>
-                            <td>{{ users.nombre }}</td>
-                            <td>{{ users.proyecto.length }}</td>
-                            <td>$ {{ getAcumuladoCostos(users.proyecto) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="card-header">
+            <h2>Informe de usuarios</h2> 
         </div>
-    </template>
+        <div class="card-body informeAdmin">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Cantidad de Proyectos</th>
+                        <th>Monto total de Proyectos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="users in usuarios" :key="users.id">
+                        <td>{{ users.id }}</td>
+                        <td>{{ users.nombre }}</td>
+                        <td>{{ users.proyecto.length }}</td>
+                        <td>{{ formatCurrency(getAcumuladoCostos(users.proyecto)) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
+
 
 <script setup>
 import {ref,onMounted} from 'vue';
@@ -60,18 +61,52 @@ const getAcumuladoCostos=(proyecto)=>{
     return (proyecto || []).reduce((total, proyecto)=> total + proyecto.costoTotal,0);
 }
 
+const formatCurrency = (value) => {
+    return `$ ${value.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
+
 onMounted(()=>{
     fetchUsuario();
 })
 
 </script>
 <style>
+h2 {
+    font-size: var(--h2-size) !important;
+    color: var(--primary-color) !important;
+    
+}
+.card {
+    background-color: rgb(0, 0, 0) !important;
+    color: rgb(231, 224, 219);
+    padding: 1rem;
+    margin: 1rem;
+}
+.card-body{
+    margin-top: 0;
+}
 .informeAdmin {
     margin-top: 1rem !important;
 }
 
-.panelInforme, .panelDatos {
+.panelInforme {
     margin-top: 3rem;
+    background-color: black; /* Fondo negro */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 15px; /* Espaciado interno */
+    color: white; /* Texto blanco */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Sombra */
+}
+
+.card-header {
+    
+    color: black; /* Texto negro */
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 table {
@@ -84,46 +119,39 @@ table {
 
 th, td {
     padding: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #333; 
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: var(--primary-color); 
+    color: black;
     font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center !important; 
+    text-transform: uppercase;
 }
 
-
-td:first-child, th:first-child {
-    text-align: left;
-}
-
-td:nth-child(2), th:nth-child(2) {
-    text-align: left;
-}
-
-td:nth-child(3), th:nth-child(3) {
-    text-align: right;
-}
-
-/* Centrar los botones en la columna de acciones */
-td:last-child, th:last-child {
-    text-align: center;
-}
-
-/* Contenedor de botones alineados al centro */
-.actions-container {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-}
-
-/* Estilo de filas alternadas */
 tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f9f9f91c; /* Fondo oscuro para filas pares */
+}
+
+tr:nth-child(odd) {
+    background-color: black; /* Fondo negro para filas impares */
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #333; /* Fondo más claro al pasar el ratón */
 }
+
+td {
+    color: white;
+    text-align: center; /* Centrar contenido en celdas */
+    font-size: 1.1rem;
+}
+
+.card-body {
+    padding: 15px; /* Espaciado interno */
+}
+
 
 </style>

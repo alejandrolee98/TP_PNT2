@@ -2,24 +2,22 @@
     <div class="container">
         <div class="card panelDatos">
             <div class="card-header" v-if="authStore.isAuthenticated">
-                <h2>Perfil de {{authStore.user.nombre}}</h2> <!--agregar el nombre recuperando el id-->
+                <h2>Perfil de {{ authStore.user.nombre }}</h2>
             </div>
             <div class="card-body">
-                <!--agregar datos recuperando el id-->
-                <h6>Nro cliente: {{authStore.user.id}}</h6>
-                <h6>Nombre: {{authStore.user.nombre}} {{authStore.user.apellido}}</h6>
-                <h6>Email: {{authStore.user.email}}</h6>
-                <h6>Dirección: {{authStore.user.direccion}}</h6>
-                <h6>Localidad: {{authStore.user.localidad}}</h6>
-                <h6>CP: {{authStore.user.cp}}</h6>
-                <h6>Provincia: {{authStore.user.provincia}}</h6>
+                <h6>Nro cliente: {{ authStore.user.id }}</h6>
+                <h6>Nombre: {{ authStore.user.nombre }} {{ authStore.user.apellido }}</h6>
+                <h6>Email: {{ authStore.user.email }}</h6>
+                <h6>Dirección: {{ authStore.user.direccion }}</h6>
+                <h6>Localidad: {{ authStore.user.localidad }}</h6>
+                <h6>CP: {{ authStore.user.cp }}</h6>
+                <h6>Provincia: {{ authStore.user.provincia }}</h6>
                 <button @click="goToEdit(authStore.user.id)" class="editarDatos btn btn-primary">Editar datos</button>
             </div>
-            
         </div>
         <div class="card panelLista">
             <div class="card-header" v-if="authStore.isAuthenticated">
-                <h2>Proyectos</h2> 
+                <h2>Proyectos</h2>
             </div>
             <div class="card-body listaProyecto">
                 <table>
@@ -35,18 +33,15 @@
                         <tr v-for="proyecto in proyectos" :key="proyecto.id">
                             <td>{{ proyecto.descripcion }}</td>
                             <td>{{ proyecto.tipo }}</td>
-                            <td>{{ proyecto.costoTotal }}</td>
+                            <td>{{ formatCurrency(proyecto.costoTotal) }}</td>
                             <td>
-
                                 <button class="btn btn-edit" @click="goDetalle(proyecto.id)">Ver detalle</button>
-
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
     </div>
 </template>
 
@@ -77,6 +72,10 @@ const fetchProyecto = async () =>{
 const goDetalle = (id)=>{
     router.push(`/detalleProyecto/${id}`);
 }
+
+const formatCurrency = (value) => {
+    return `$ ${value.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
 
 onMounted(()=>{
     fetchProyecto();
@@ -165,11 +164,21 @@ td:last-child, th:last-child {
     gap: 15px;
 }
 
+
+
 /* Estilo de filas alternadas */
+
 tr:nth-child(even) {
-    background-color: #f9f9f938;
+    background-color: #f9f9f91c; /* Fondo oscuro para filas pares */
 }
 
+tr:nth-child(odd) {
+    background-color: black; /* Fondo negro para filas impares */
+}
+
+tr:hover {
+    background-color: #333; /* Fondo más claro al pasar el ratón */
+}
 /* Estilos de los botones */
 .btn {
     display: inline-block;

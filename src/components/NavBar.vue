@@ -19,7 +19,7 @@
                     <li v-if="authStore.isAuthenticated && authStore.isAdmin">
                         <router-link :class="{'nav-link-scrolled': isScrolled}" class="nav-link" to="/admin">
                             <div class="icon-text">
-                                <img :class="{'nav-icon-scrolled': isScrolled}" src="/src/images/home.png" alt="Informe" class="nav-icon"> Informe
+                                <img :class="{'nav-icon-scrolled': isScrolled}" src="/src/images/document.png" alt="Informe" class="nav-icon"> Informe
                             </div>
                         </router-link>
                     </li>
