@@ -51,37 +51,34 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 import { useAuthStore } from '../stores';
-
 import { useRouter } from 'vue-router';
-import {ref,onMounted} from 'vue';
-import axios from 'axios';
+import userService from '../services/userService'; 
 
 const authStore = useAuthStore();
 const router = useRouter();
 const proyectos = ref([]);
 
-const goToEdit = (id) =>{
-    router.push(`/registrar/editar/${id}`);
-}
+const goToEdit = (id) => {
+  router.push(`/registrar/editar/${id}`);
+};
 
-const fetchProyecto = async () =>{
-    try {
-        const response = await axios.get(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${authStore.user.id}/proyecto`);
-        proyectos.value = response.data;
-    } catch (error) {
-        console.error('Error en el listado',error);
-    }
-}
+const fetchProyecto = async () => {
+  try {
+    proyectos.value = await userService.getUserProjects(authStore.user.id);
+  } catch (error) {
+    console.error('Error en el listado de proyectos:', error);
+  }
+};
 
-const goDetalle = (id)=>{
-    router.push(`/detalleProyecto/${id}`);
-}
+const goDetalle = (id) => {
+  router.push(`/detalleProyecto/${id}`);
+};
 
-onMounted(()=>{
-    fetchProyecto();
-})
-
+onMounted(() => {
+  fetchProyecto();
+});
 </script>
 
 <style scoped>
