@@ -1,7 +1,7 @@
 <template>
     <div class="card panelInforme">
       <div class="card-header">
-        <h1>Informe de usuarios</h1>
+        <h2>Informe de usuarios</h2>
       </div>
       <div class="card-body informeAdmin">
         <table>

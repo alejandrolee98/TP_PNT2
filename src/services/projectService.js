@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://672aac89976a834dd0240f81.mockapi.io/api/users';
+const API_BASE_URL = 'https://67329d4e2a1b1a4ae1106784.mockapi.io/api/users';
 
 const crearProyecto = async (userId, projectData) => {
   const response = await axios.post(`${API_BASE_URL}/${userId}/proyecto`, projectData);

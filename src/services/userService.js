@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://672aac89976a834dd0240f81.mockapi.io/api';
+const API_BASE_URL = 'https://67329d4e2a1b1a4ae1106784.mockapi.io/api';
 
 const userService = {
   async obtenerUsuarioPorId(id) {

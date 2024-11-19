@@ -157,7 +157,7 @@ const guardarProyecto = async () => {
 const registrarme = () => router.push('/registrar/nuevo');
 </script>
   
-  <style scoped>
+<style scoped>
   .form-select, .form-control {
     background-color: rgba(0, 0, 0, 0.819); /* Fondo del select cerrado */
     color: var(--primary-color); /* Color del texto del select */
@@ -182,47 +182,47 @@ const registrarme = () => router.push('/registrar/nuevo');
     color: black; /* Color del texto al pasar el cursor */
 }
  
-  .container {
+.container {
     max-width: 600px;
     margin-bottom: 2rem;
-  }
-  .cotizador {
+}
+.cotizador {
     margin-top: 2rem;
     margin-bottom: 5rem;
-  }
-  .cotizador h1 {
+}
+.cotizador h1 {
     margin-bottom: 2rem;
     color: var(--primary-color);
     font-weight: bolder; 
     text-transform: uppercase;
     font-size: var(--h1-size);
-  }
-  .cotizador label {
+}
+.cotizador label {
     color: rgb(0, 0, 0);
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 0;
-  }
+}
 
-  button {
+button {
     background-color: var(--primary-color) !important;
     border-color:  var(--primary-color);
     font-weight: bold;
     margin-top: 1rem;
     font-size: 0.9rem;
-  }
- button:hover {
+}
+button:hover {
     background-color: var(--primary-color-hover) !important;
     border-color: var(--primary-color-hover);
     font-weight: bold;
-  }
-  button.borrar {
+}
+button.borrar {
     background-color: black !important;
     border-color:  var(--primary-color);
     color: var(--primary-color) !important;
-  }
-  button.borrar:hover {
+}
+button.borrar:hover {
     background-color: rgba(83, 56, 31, 0.616) !important;
-  }
+}
 
 </style>

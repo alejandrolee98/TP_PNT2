@@ -99,6 +99,17 @@ const registrar = () => {
 };
 </script>
 
+<style scoped>
+
+.login {
+  font-weight: bold !important;
+}
+.login:hover {
+  opacity: 0.9;
+  color: white;
+}
+</style>
+
   // export default {
   //   name: 'LoginView',
   //   data() {
