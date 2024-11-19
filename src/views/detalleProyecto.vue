@@ -36,7 +36,7 @@
               </tr>
               <tr>
                 <td class="detail-title">Costo por unidad:</td>
-                <td class="detail-value">${{ proyecto.costoUnitario.toFixed(2) }}</td>
+                <td class="detail-value">{{ formatCurrency(Number(proyecto.costoUnitario)) }}</td>
               </tr>
             </tbody>
           </table>
@@ -45,7 +45,7 @@
               <tbody>
                 <tr>
                   <td class="summary-title">TOTAL:</td>
-                  <td class="summary-value">${{ proyecto.costoTotal.toFixed(2) }}</td>
+                  <td class="summary-value">{{ formatCurrency(Number(proyecto.costoTotal)) }}</td>
                 </tr>
               </tbody>
             </table>
@@ -59,6 +59,7 @@
     </div>
   </div>
 </template>
+
 
 
 <script setup>
@@ -90,7 +91,17 @@ const fetchProyecto = async () => {
   }
 };
 
+
+const formatCurrency = (value) => {
+  if (isNaN(value)) return '$ 0,00'; // En caso de que el valor no sea un número
+  return `$ ${value.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
+
+
+//Editar
+
 // Redirigir al cotizador para editar el proyecto
+
 const editarProyecto = () => {
   router.push({
     name: 'cotizador',
@@ -149,9 +160,11 @@ h1 {
   padding: 20px;
   border-radius: 8px;
 }
+
 .card-body {
-  font-size: 1.3rem!important;
+  font-size: 1.3rem !important;
 }
+
 /* Tabla de detalles */
 .details-table {
   width: 100%;
@@ -165,7 +178,6 @@ h1 {
 
 .detail-title {
   text-align: left;
-
   width: 50%;
 }
 
@@ -177,11 +189,15 @@ h1 {
 
 /* Caja resumen */
 .summary-box {
-  background-color: rgba(60, 60, 60, 0.8);
+  background-color: #3c3c3c; /* Fondo gris uniforme */
   color: white;
-  padding: 15px;
-  border-radius: 8px;
+  padding: 0; /* Elimina todo el padding */
+  border-radius: 8px; /* Bordes redondeados */
   margin-top: 20px;
+  display: flex; /* Usamos flexbox */
+  align-items: center; /* Centra contenido verticalmente */
+  justify-content: space-between; /* Alinea el texto a los lados */
+  height: 40px; /* Reduce la altura del cuadro */
 }
 
 .summary-box table {
@@ -190,23 +206,32 @@ h1 {
 }
 
 .summary-box td {
-  padding: 1px;
+  padding: 0 15px; /* Espaciado horizontal */
+  height: 40px; /* Asegura que las celdas coincidan con la altura de la caja */
+  background-color: #3c3c3c; /* Fondo gris uniforme */
+  border: none; /* Elimina bordes */
+  vertical-align: middle; /* Alinea verticalmente */
+  line-height: 40px; /* Asegura alineación del texto */
 }
 
 .summary-title {
   text-align: left;
+  font-weight: bold;
+  color: white;
 }
 
 .summary-value {
   text-align: right;
   font-weight: bold;
+  color: white;
 }
 
 /* Botones */
 .button-container {
   margin-top: 20px;
   display: flex;
-  gap: 10px;
+  justify-content: flex-end; /* Alinea los botones a la derecha */
+  gap: 10px; /* Espaciado entre los botones */
 }
 
 .btn-edit {
@@ -217,6 +242,7 @@ h1 {
   border-radius: 4px;
   cursor: pointer;
 }
+
 .btn-edit:hover {
   background-color: #23617096;
 }
@@ -233,14 +259,7 @@ h1 {
 .btn-delete:hover {
   background-color: #f443368a;
 }
-
-.button-container {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end; /* Alinea los botones a la derecha */
-  gap: 10px; /* Espaciado entre los botones */
-}
-
 </style>
+
 
 
