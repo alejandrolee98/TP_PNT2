@@ -14,11 +14,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in usuarios" :key="user.id">
-              <td>{{ user.id }}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.proyecto.length }}</td>
-              <td>{{ formatCurrency(getAcumuladoCostos(users.proyecto)) }}</td>
+            <tr v-for="users in usuarios" :key="users.id">
+                            <td>{{ users.id }}</td>
+                            <td>{{ users.name }}</td>
+                            <td>{{ users.proyecto.length }}</td>
+                            <td>$ {{ getAcumuladoCostos(users.proyecto) }}</td>
             </tr>
           </tbody>
         </table>
