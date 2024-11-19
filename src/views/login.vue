@@ -40,7 +40,7 @@
             <button
               class="login btn btn-lg w-50 ms-2"
               style="background-color: var(--primary-color); color: white;"
-              @click="registrarme"
+              @click="registrar"
             >
               Registrarme
             </button>
@@ -52,62 +52,52 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '../stores';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useAuthStore } from '../stores';
+import userService from '../services/userService'; // Importar el servicio centralizado
 
 const email = ref('');
 const password = ref('');
 const authStore = useAuthStore();
 const router = useRouter();
 
-const login = async () => {
-await authStore.login(email.value, password.value);
-if(authStore.isAuthenticated){
+/**
+ * Maneja el inicio de sesión del usuario.
+ */
+const handleLogin = async () => {
+  try {
+    const user = await userService.login(email.value, password.value); // Centralizar la lógica de autenticación
+    if (user) {
+      authStore.$patch({ user, token: user.token }); // Actualizar estado de AuthStore
+      navegarDespuesLogin(); // Redireccionar según rol
+    } else {
+      alert('Credenciales inválidas. Por favor, inténtelo de nuevo.');
+    }
+  } catch (error) {
+    console.error('Error en el inicio de sesión:', error);
+    alert('Ocurrió un error al iniciar sesión. Intente más tarde.');
+  }
+};
+
+/**
+ * Navega después del login según el rol del usuario.
+ */
+const navegarDespuesLogin = () => {
   if (authStore.isAdmin) {
     router.push('/admin');
   } else {
     router.push('/');
   }
-}
-}
+};
 
-const registrarme = ()=>{
+/**
+ * Navega a la vista de registro.
+ */
+const registrar = () => {
   router.push('/registrar/nuevo');
-}
+};
 </script>
-
-<style scoped>
-.form-control-lg {
-font-size: 0.9rem;
-}
-.form-control:focus {
-border-color: var(--primary-color);
-box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
-}
-
-.form-check-input:checked {
-background-color: var(--primary-color);
-border-color: var(--primary-color);
-}
-.btn {
-transition: background-color 0.3s ease;
-}
-.btn:hover {
-background-color: var(--primary-color-hover) !important;
-}
-button.login {
-font-weight: bold;
-font-size: 1rem;
-padding: 0.3rem;
-}
-.ms-2 {
-  margin-left: 2rem !important;
-}
-h1 {
-    font-size: var(--h1-size);
-}
-</style>
 
   // export default {
   //   name: 'LoginView',

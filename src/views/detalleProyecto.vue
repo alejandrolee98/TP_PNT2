@@ -64,19 +64,20 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '../stores';
+import projectService from '../services/projectService';
 
 const authStore = useAuthStore();
 const route = useRoute();
-const proyecto = ref(null);
 const router = useRouter();
 
-// Obtener el proyecto usando el userId y proyectoId
+const proyecto = ref(null);
+
+// Obtener el proyecto usando el userId y proyectoId desde el service
 const fetchProyecto = async () => {
   const userId = authStore.user.id;
-  const proyectoId = route.params.proyectoId; // Obtener el proyectoId de la ruta
+  const proyectoId = route.params.proyectoId;
 
   if (!userId || !proyectoId) {
     console.error("User ID o Proyecto ID no están definidos");
@@ -84,14 +85,12 @@ const fetchProyecto = async () => {
   }
 
   try {
-    const response = await axios.get(
-      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
-    );
-    proyecto.value = response.data;
+    proyecto.value = await projectService.obtenerProyecto(userId, proyectoId);
   } catch (error) {
     console.error('Error al recuperar el proyecto:', error);
   }
 };
+
 
 const formatCurrency = (value) => {
   if (isNaN(value)) return '$ 0,00'; // En caso de que el valor no sea un número
@@ -100,6 +99,9 @@ const formatCurrency = (value) => {
 
 
 //Editar
+
+// Redirigir al cotizador para editar el proyecto
+
 const editarProyecto = () => {
   router.push({
     name: 'cotizador',
@@ -112,12 +114,12 @@ const editarProyecto = () => {
       tipo: proyecto.value.tipo,
       material: proyecto.value.material,
       cantidadColores: proyecto.value.cantidadColores,
-      cantidad: proyecto.value.cantidad
-    }
+      cantidad: proyecto.value.cantidad,
+    },
   });
 };
 
-// Eliminar
+// Eliminar el proyecto usando el service
 const eliminarProyecto = async () => {
   const userId = authStore.user.id;
   const proyectoId = route.params.proyectoId;
@@ -128,20 +130,16 @@ const eliminarProyecto = async () => {
   }
 
   try {
-    await axios.delete(
-      `https://672aac89976a834dd0240f81.mockapi.io/api/users/${userId}/proyecto/${proyectoId}`
-    );
+    await projectService.eliminarProyecto(userId, proyectoId);
     alert('Proyecto eliminado');
-    router.push('/cotizador'); // Redirigir a la lista de proyectos después de eliminar
+    router.push('/cotizador'); // Redirigir después de eliminar
   } catch (error) {
     console.error('Error al eliminar el proyecto:', error);
   }
 };
 
-
-onMounted(() => {
-  fetchProyecto();
-});
+// Llamar al método para obtener el proyecto al montar la vista
+onMounted(fetchProyecto);
 </script>
 
 <style scoped>

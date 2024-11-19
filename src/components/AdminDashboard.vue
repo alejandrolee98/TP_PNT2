@@ -1,75 +1,59 @@
 <template>
     <div class="card panelInforme">
-        <div class="card-header">
-            <h2>Informe de usuarios</h2> 
-        </div>
-        <div class="card-body informeAdmin">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Cantidad de Proyectos</th>
-                        <th>Monto total de Proyectos</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="users in usuarios" :key="users.id">
-                        <td>{{ users.id }}</td>
-                        <td>{{ users.nombre }}</td>
-                        <td>{{ users.proyecto.length }}</td>
-                        <td>{{ formatCurrency(getAcumuladoCostos(users.proyecto)) }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <div class="card-header">
+        <h1>Informe de usuarios</h1>
+      </div>
+      <div class="card-body informeAdmin">
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Cantidad de Proyectos</th>
+              <th>Monto total de Proyectos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in usuarios" :key="user.id">
+              <td>{{ user.id }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.proyecto.length }}</td>
+              <td>{{ formatCurrency(getAcumuladoCostos(users.proyecto)) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-</template>
-
-
-<script setup>
-import {ref,onMounted} from 'vue';
-import axios from 'axios';
+  </template>
+  
+  <script setup>
+import { ref, onMounted } from 'vue';
+import userService from '../services/userService'; // Importación del servicio
 
 const usuarios = ref([]);
-const datosInforme = ref([]);
+const fetchUsuario = async () => {
+  try {
+    // Llamar al servicio modularizado
+    usuarios.value = await userService.fetchUsuariosConProyectos();
+  } catch (error) {
+    console.error('Error en fetchUsuario:', error);
+  }
+};
 
-const fetchUsuario = async () =>{
-    try {
-        const response = await axios.get(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/`);
-        const usuario = response.data;
-        const proyectosCadaUsuario = usuario.map(async user=>{
-            const projectResponse = await axios.get(`https://6721850698bbb4d93ca89e32.mockapi.io/api/users/${user.id}/proyecto`);
-            return { 
-                ...user,
-                proyecto: projectResponse.data || [],
-            };
-        });
-        datosInforme.value = proyectosCadaUsuario;
-
-        Promise.all(proyectosCadaUsuario)
-            .then(usuariosConDatosProyecto => {
-              usuarios.value = usuariosConDatosProyecto;
-            });
-        
-    } catch (error) {
-        console.error('Error en llamada a usuario',error);
-    }
-}
-
-const getAcumuladoCostos=(proyecto)=>{
-    return (proyecto || []).reduce((total, proyecto)=> total + proyecto.costoTotal,0);
-}
+const getAcumuladoCostos = (proyecto) => {
+  return (proyecto || []).reduce((total, proyecto) => total + proyecto.costoTotal, 0);
+};
 
 const formatCurrency = (value) => {
     return `$ ${value.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 };
 
-onMounted(()=>{
-    fetchUsuario();
-})
+onMounted(() => {
+  fetchUsuario();
+});
 
 </script>
+
 <style>
 h2 {
     font-size: var(--h2-size) !important;
