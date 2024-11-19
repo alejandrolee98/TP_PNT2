@@ -162,7 +162,7 @@ const registrarme = () => router.push('/registrar/nuevo');
     background-color: rgba(0, 0, 0, 0.819); /* Fondo del select cerrado */
     color: var(--primary-color); /* Color del texto del select */
     border: 1px solid var(--primary-color); /* Borde del select */
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
 
 .form-select option {
@@ -209,7 +209,7 @@ button {
     border-color:  var(--primary-color);
     font-weight: bold;
     margin-top: 1rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
 }
 button:hover {
     background-color: var(--primary-color-hover) !important;
